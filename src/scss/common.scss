@@ -1,0 +1,113 @@
+.client_main_heading {
+  font-size: 18px;
+  font-weight: 500;
+  width: 100%;
+  padding: 4px;
+  letter-spacing: 0.1rem;
+}
+.main_section_heading {
+  font-size: 18px;
+  font-weight: 500;
+  width: 100%;
+  padding: 4px;
+  font-family: 'Preahvihear';
+  letter-spacing: 0.1rem;
+}
+
+.main_section_description {
+  font-size: 16px;
+  font-weight: 600 !important;
+  width: 100%;
+  padding: 4px;
+  font-family: 'Poppins';
+  letter-spacing: 0.1rem;
+}
+.main_section_textfield_label {
+  color: #000000;
+}
+.circular_icon {
+  border-radius: 50%;
+  border: 1px solid #e5e5e5;
+  height: 40px !important;
+  width: 40px !important;
+  padding: 7px;
+  color: #7ac144 !important;
+  margin: 0 5px;
+}
+
+.save_button {
+  background-color: #7ac144 !important;
+  color: #fff !important;
+  text-transform: capitalize !important;
+  white-space: nowrap;
+}
+.disable_button {
+  background-color: #ddd !important;
+  color: #fff !important;
+  text-transform: capitalize !important;
+  white-space: nowrap;
+}
+.cancel_button {
+  border: 1px solid #7ac144 !important;
+  color: #7ac144 !important;
+  text-transform: capitalize !important;
+  margin-left: 10px !important;
+}
+.dialog_heading {
+  text-align: center;
+  font-weight: 600 !important;
+}
+.dialog_section {
+  padding: 20px;
+}
+.sub_heading {
+  color: #8e8e8e;
+}
+.common_button {
+  background-color: #7ac144 !important;
+  color: #fff !important;
+  text-transform: capitalize !important;
+}
+.developer_title_desc {
+  display: flex;
+  flex-direction: column;
+}
+.cancel_icon {
+  color: #f11f12 !important;
+}
+.width-main {
+  width: 83%;
+  height: 100vh;
+  background-color: #f1f2f6;
+}
+.main_tab_section {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 12px;
+  // height: 90%;
+  height: 100%;
+}
+
+.inner_container {
+  /* height: 100%; */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.below_main_tab_section {
+  background-color: #fff;
+  border-radius: 5px;
+  height: 75%;
+  margin: 0px 0px;
+  padding: 10px !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.tab_header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  padding: 8px 0px;
+}
