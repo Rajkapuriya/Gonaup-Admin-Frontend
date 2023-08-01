@@ -1,0 +1,28 @@
+.project_job_left_section {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  border: 1px solid #e5e5e5;
+  border-right: 0px;
+  border-radius: 5px 0 0 5px;
+}
+.project_job_detail {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+.project_detail_component {
+  min-width: 33%;
+  max-width: 33%;
+  display: flex;
+}
+.project_job_right_section {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  border: 1px solid #e5e5e5;
+  border-radius: 0 5px 5px 0;
+  padding: 0;
+}

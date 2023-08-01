@@ -25,11 +25,9 @@ const AdminLogin = () => {
         onSuccess: (res) => {
             setLoginToken(res.data.data.token)
             localStorage.setItem('type', res?.data?.data?.type)
-            navigate("/adminProfile")
-                ;
+            navigate("/projectList")
         },
         onError: (err) => {
-            ;
         }
     });
     const handleLogin = async (e) => {
@@ -147,7 +145,6 @@ const AdminLogin = () => {
                     </Box>
                 </Box>
             </Box>
-            {/* <ErrorSnackbar /> */}
         </>
     )
 }

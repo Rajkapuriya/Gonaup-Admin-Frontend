@@ -87,7 +87,6 @@
   // height: 90%;
   height: 100%;
 }
-
 .inner_container {
   /* height: 100%; */
   display: flex;
@@ -103,6 +102,15 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
+.below_main_detail_section {
+  background-color: #fff;
+  border-radius: 5px;
+  height: 85%;
+  margin: 10px 0px;
+  padding: 10px !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 .tab_header {
   display: flex;
   width: 100%;
@@ -110,4 +118,8 @@
   align-content: center;
   align-items: center;
   padding: 8px 0px;
+}
+.project_detail_sub_heading {
+  color: #8e8e8e;
+  word-wrap: break-word;
 }

@@ -14,6 +14,9 @@ const SideBar = () => {
                 </div>
                 <Box className="sidebar_group_icon">
                     <Box
+                        onClick={() => {
+                            navigate('/projectlist')
+                        }}
                         className={`sidebar_icons ${path === '/projects' && 'selected-link'
                             }`}>
                         <Box className="sidebar_icon_root">
@@ -26,7 +29,9 @@ const SideBar = () => {
                             Projects
                         </Typography>
                     </Box>
-                    <Box
+                    <Box onClick={() => {
+                        navigate('/joblist')
+                    }}
                         className={`sidebar_icons ${path === '/jobs' && 'selected-link'
                             }`}>
                         <Box className="sidebar_icon_root">
