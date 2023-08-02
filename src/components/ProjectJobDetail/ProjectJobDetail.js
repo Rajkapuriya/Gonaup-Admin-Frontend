@@ -17,13 +17,16 @@ import EmailLogo from '../../assets/images/Email.svg'
 import CallLogo from '../../assets/images/Call.svg'
 import { PROJECT } from '../../constants/projectConstant'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
+import DeleteProjectJobDialog from '../DeleteProjectJobDialog/DeleteProjectJobDialog'
+import UpdateCommissionDialog from './UpdateCommissionDialog'
+import UpdateHiringStageDialog from './UpdateHiringStageDialog'
+import UpdateContractStatusDialog from './UpdateContractStatusDialog'
+import SearchTalent from './SearchTalent'
+import CandidateList from './CandidateList'
 const theme = createTheme({
     palette: {
         primary: {
             main: '#7AC144',
-            // light: will be calculated from palette.primary.main,
-            // dark: will be calculated from palette.primary.main,
-            // contrastText: will be calculated to contrast with palette.primary.main
         },
         secondary: {
             main: '#C18F44',
@@ -42,15 +45,29 @@ const theme = createTheme({
 const ProjectJobDetail = ({ project_type }) => {
     const { id } = useParams();
     const navigate = useNavigate()
-    const [value, setValue] = useState('1');
+    const [value, setValue] = useState('search');
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    const [projectJobDetail, setProjectJobDetail] = useState([]);
+    const [projectJobDetail, setProjectJobDetail] = useState({});
+    const [deleteProjectJobDialogControl, setDeleteProjectJobDialogControl] = useState({
+        status: false,
+        reason: "",
+        projectId: projectJobDetail?.id
+    })
+    const [updateCommissionDialogControl, setUpdateComissionDialogControl] = useState({ status: false, commission: '' })
+    const [updateHiringStageDialogControl, setUpdateHiringStageDialogControl] = useState({
+        status: false,
+        hiring_status: null
+    })
+    const [updateContractStatusDialogControl, setUpdateContractStatusDialogControl] = useState({
+        status: false,
+        contractStatus: ''
+    })
+    const [candidateList, setCandidateList] = useState([])
     const { mutate: GetProjectJobDetail } = useMutation(requestAdmin, {
         onSuccess: (res) => {
             setProjectJobDetail(res.data.data)
-            debugger;
         },
         onError: (err) => {
             console.log(err);
@@ -68,6 +85,110 @@ const ProjectJobDetail = ({ project_type }) => {
     useEffect(() => {
         handleGetProjectJobDetail();
     }, [])
+    const handleClose = () => {
+        setDeleteProjectJobDialogControl({ ...deleteProjectJobDialogControl, status: false })
+        setUpdateComissionDialogControl({ ...updateCommissionDialogControl, status: false })
+        setUpdateHiringStageDialogControl({ ...updateHiringStageDialogControl, status: false })
+        setUpdateContractStatusDialogControl({ ...updateContractStatusDialogControl, status: false })
+    }
+    const handleUpdateCommission = () => {
+        DeleteProject({
+            url: `/project/commission`,
+            method: 'PUT',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+            data: {
+                projectId: projectJobDetail?.id,
+                budgetType: projectJobDetail?.budget_type,
+                commission: updateCommissionDialogControl.commission
+            }
+        })
+    }
+    const { mutate: DeleteProject } = useMutation(requestAdmin, {
+        onSuccess: (res) => {
+            handleClose();
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    });
+    const handleDeleteProject = () => {
+        DeleteProject({
+            url: `/project/close`,
+            method: 'delete',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+            data: {
+                reason: deleteProjectJobDialogControl.reason,
+                projectId: projectJobDetail?.id
+            }
+        })
+    }
+    const { mutate: UpdateHiringStage } = useMutation(requestAdmin, {
+        onSuccess: (res) => {
+            handleClose();
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    });
+    const handleUpdateHiringStage = () => {
+        UpdateHiringStage({
+            url: `/project/hiring-status`,
+            method: 'put',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+            data: {
+                projectId: projectJobDetail?.id,
+                hiringStatus: parseInt(updateHiringStageDialogControl.hiring_status)
+            }
+        })
+    }
+    const { mutate: UpdateContractStatus } = useMutation(requestAdmin, {
+        onSuccess: (res) => {
+            handleClose();
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    });
+    const handleUpdateContractStatus = () => {
+        UpdateContractStatus({
+            url: `/project/contract-status`,
+            method: 'put',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+            data: {
+                projectId: projectJobDetail?.id,
+                contractStatus: parseInt(updateContractStatusDialogControl.contractStatus)
+            }
+        })
+    }
+
+    const { mutate: GetCandidateListDetail } = useMutation(requestAdmin, {
+        onSuccess: (res) => {
+            setCandidateList(res.data.data.data)
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    });
+    const handleGetCandidateListDetail = () => {
+        GetCandidateListDetail({
+            url: `/project/candidate-list?page=1&size=10&hiringStatus=${parseInt(value)}&projectId=${id}`,
+            method: 'get',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+        })
+    }
+    useEffect(() => {
+        value !== "search" && handleGetCandidateListDetail();
+    }, [value])
     return (
         <Box className="main_tab_section">
             <Box className="below_main_detail_section p-3 row">
@@ -137,15 +258,19 @@ const ProjectJobDetail = ({ project_type }) => {
                         <TabContext value={value}>
                             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                 <TabList onChange={handleChange} aria-label="lab API tabs example">
-                                    <Tab label="Search" value="1" />
-                                    <Tab label="Invited" value="2" />
-                                    <Tab label="Interested" value="3" />
-                                    <Tab label="Shortlisted" value="4" />
-                                    <Tab label="Hired" value="5" />
-                                    <TextField value="helo" label="Hello" />
+                                    <Tab label="Search" value="search" />
+                                    <Tab label="Invited" value="0" />
+                                    <Tab label="Interested" value="1" />
+                                    <Tab label="Shortlisted" value="2" />
+                                    <Tab label="Hired" value="3" />
                                 </TabList>
                             </Box>
-                            <TabPanel value="1">Item One</TabPanel>
+                            <TabPanel value="search">
+                                <SearchTalent />
+                            </TabPanel>
+                            <TabPanel value="0">
+                                <CandidateList candidateList={candidateList} />
+                            </TabPanel>
                         </TabContext>
                     </Box>
                 </Box>
@@ -178,7 +303,9 @@ const ProjectJobDetail = ({ project_type }) => {
                             </Typography>
                         </Box>
                         <Box>
-                            <Button className="common_button">Close</Button>
+                            <Button onClick={() => {
+                                setDeleteProjectJobDialogControl({ ...deleteProjectJobDialogControl, status: true })
+                            }} className="common_button">Close</Button>
                         </Box>
                     </Box>
                     <Divider />
@@ -193,35 +320,54 @@ const ProjectJobDetail = ({ project_type }) => {
                     <Box className="p-3 d-flex column">
                         <Box className="d-flex row">
                             <Typography className="project_detail_sub_heading" variant='span'>Commission</Typography>
-                            <Typography variant='span'>-</Typography>
+                            <Typography variant='span'>{projectJobDetail.commission}</Typography>
                         </Box>
                         <Box className="d-flex row">
-                            <Button className="common_button">Add</Button>
+                            <Button onClick={() => {
+                                setUpdateComissionDialogControl({ ...updateCommissionDialogControl, status: true, commission: projectJobDetail.commission })
+                            }} className="common_button">Add</Button>
                         </Box>
                     </Box>
                     <Divider />
-
                     <Box className="p-3 d-flex column">
                         <Box className="d-flex row">
                             <Typography className="project_detail_sub_heading" variant='span'>Hiring Status</Typography>
-                            <Typography variant='span'>Invited</Typography>
+                            <Typography variant='span'>{projectJobDetail?.hiring_status}</Typography>
                         </Box>
                         <Box className="d-flex row">
-                            <Button className="common_button">Update</Button>
+                            <Button onClick={() => {
+                                setUpdateHiringStageDialogControl({ ...updateHiringStageDialogControl, status: true, hiring_status: projectJobDetail.project_status })
+                            }} className="common_button">Update</Button>
                         </Box>
                     </Box>
                     <Divider />
                     <Box className="p-3 d-flex column">
                         <Box className="d-flex row">
                             <Typography className="project_detail_sub_heading" variant='span'>Contract Status</Typography>
-                            <Typography variant='span'>Pending</Typography>
+                            <Typography variant='span'>
+                                {PROJECT.CONTRACT_STATUS.map((data) => {
+                                    if (data.id === projectJobDetail.contract_status) {
+                                        return data.type
+                                    }
+                                })}
+                            </Typography>
                         </Box>
                         <Box className="d-flex row">
-                            <Button className="common_button">Update</Button>
+                            <Button onClick={() => {
+                                setUpdateContractStatusDialogControl({ ...updateContractStatusDialogControl, status: true, contractStatus: projectJobDetail.contract_status })
+                            }} className="common_button">Update</Button>
                         </Box>
                     </Box>
                 </Box>
             </Box>
+
+            <DeleteProjectJobDialog deleteProjectJobDialogControl={deleteProjectJobDialogControl} handleClose={handleClose} setDeleteProjectJobDialogControl={setDeleteProjectJobDialogControl} handleDeleteProject={handleDeleteProject} />
+
+            <UpdateCommissionDialog updateCommissionDialogControl={updateCommissionDialogControl} setUpdateComissionDialogControl={setUpdateComissionDialogControl} handleUpdateCommission={handleUpdateCommission} handleClose={handleClose} />
+
+            <UpdateHiringStageDialog updateHiringStageDialogControl={updateHiringStageDialogControl} setUpdateHiringStageDialogControl={setUpdateHiringStageDialogControl} handleUpdateHiringStage={handleUpdateHiringStage} />
+
+            <UpdateContractStatusDialog updateContractStatusDialogControl={updateContractStatusDialogControl} setUpdateContractStatusDialogControl={setUpdateContractStatusDialogControl} handleClose={handleClose} handleUpdateContractStatus={handleUpdateContractStatus} />
         </Box >
     )
 }

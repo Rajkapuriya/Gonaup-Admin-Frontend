@@ -1,0 +1,4 @@
+.talent_detail_section {
+  display: flex;
+  flex-direction: row;
+}

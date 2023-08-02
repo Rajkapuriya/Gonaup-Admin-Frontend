@@ -23,6 +23,11 @@ export const PROJECT = {
         { type: "NO", id: 0 },
         { type: "YES", id: 1 },
     ],
+    CONTRACT_STATUS: [
+        { type: "Pending", id: 0 },
+        { type: "Open", id: 1 },
+        { type: "Closed", id: 2 },
+    ],
     COMPANY_SIZE: [
         { type: "It's just me", id: 0 },
         { type: "2-9 employees", id: 1 },
@@ -35,5 +40,11 @@ export const PROJECT = {
         { type: "All position filled", id: 1 },
         { type: "Filled by alternate source", id: 2 },
         { type: "Project was cancelled", id: 3 },
+    ],
+    HIRING_STAGE: [
+        { type: "Invited", id: 0 },
+        { type: "Interested", id: 1 },
+        { type: "Suggested", id: 2 },
+        { type: "Hired", id: 3 },
     ]
 }
