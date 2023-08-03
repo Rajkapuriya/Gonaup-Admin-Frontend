@@ -25,7 +25,7 @@ const AdminLogin = () => {
         onSuccess: (res) => {
             setLoginToken(res.data.data.token)
             localStorage.setItem('type', res?.data?.data?.type)
-            navigate("/projectList")
+            navigate("/project-list")
         },
         onError: (err) => {
         }

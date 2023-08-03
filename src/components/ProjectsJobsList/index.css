@@ -11,6 +11,9 @@
   border-radius: 5px;
   padding: 10px;
 }
+.project_detail:hover {
+  cursor: pointer;
+}
 .project_title {
   font-weight: 600;
   font-size: 20px;

@@ -63,7 +63,7 @@ const ProjectsJobsList = ({ project_type }) => {
                     <Box className="project_list_section">
                         {projectList && projectList.map((data) => {
                             return <Box className="project_detail" onClick={() => {
-                                navigate(`/projectjobdetail/${data.id}`)
+                                navigate(`/project-job-detail/${data.id}`)
                             }}>
                                 <Box className="project_title d-flex justify-content-between">
                                     <Box className="d-flex row">

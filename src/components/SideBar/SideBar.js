@@ -30,7 +30,7 @@ const SideBar = () => {
                         </Typography>
                     </Box>
                     <Box onClick={() => {
-                        navigate('/joblist')
+                        navigate('/job-list')
                     }}
                         className={`sidebar_icons ${path === '/jobs' && 'selected-link'
                             }`}>
@@ -45,6 +45,9 @@ const SideBar = () => {
                         </Typography>
                     </Box>
                     <Box
+                        onClick={() => {
+                            navigate('/client-list')
+                        }}
                         className={`sidebar_icons ${path === '/clients' && 'selected-link'
                             }`}>
                         <Box className="sidebar_icon_root">
@@ -58,6 +61,9 @@ const SideBar = () => {
                         </Typography>
                     </Box>
                     <Box
+                        onClick={() => {
+                            navigate('/recruiter-list')
+                        }}
                         className={`sidebar_icons ${path === '/recruiters' && 'selected-link'}`}
                     >
                         <Box className="sidebar_icon_root">
@@ -71,6 +77,9 @@ const SideBar = () => {
                         </Typography>
                     </Box>
                     <Box
+                        onClick={() => {
+                            navigate('/developer-list')
+                        }}
                         className={`sidebar_icons ${path === '/developers' && 'selected-link'
                             }`}>
                         <Box className="sidebar_icon_root">
@@ -83,7 +92,9 @@ const SideBar = () => {
                             Developers
                         </Typography>
                     </Box>
-                    <Box
+                    <Box onClick={() => {
+                        navigate('/admin-setting')
+                    }}
                         className={`sidebar_icons ${path === '/settings' && 'selected-link'
                             }`}>
                         <Box className="sidebar_icon_root">

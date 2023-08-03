@@ -123,3 +123,67 @@
   color: #8e8e8e;
   word-wrap: break-word;
 }
+.orders_table_height {
+  height: 82%;
+  border: none !important;
+}
+.set_box_shadow {
+  box-shadow: none !important;
+}
+
+.customer_list_table {
+  padding: 0px !important;
+}
+.tablecell_height {
+  line-height: 3 !important;
+}
+
+.profile_body_section {
+  height: 100%;
+  display: flex;
+  background-color: #fff;
+  border-radius: 5px;
+  flex-direction: column !important;
+  padding: 10px;
+  margin: 8px 12px;
+}
+
+.user_profile_header_Section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.username_profile_Section {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.user_profile_icon {
+  height: 90px !important;
+  width: 90px !important;
+  color: #f1f2f6 !important;
+  border-radius: 50%;
+  background-color: #e5e5e5;
+}
+.username_and_position {
+  display: flex !important;
+  flex-direction: column !important;
+  margin-left: 8px;
+}
+.username_text {
+  font-size: 18px;
+  font-weight: bold;
+}
+.client_profile_tab button {
+  text-transform: capitalize;
+}
+.border_common_button {
+  border: 1px solid #7ac144 !important;
+  color: #7ac144 !important;
+  text-transform: capitalize !important;
+  width: 200px;
+}

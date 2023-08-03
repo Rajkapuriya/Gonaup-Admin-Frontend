@@ -1,0 +1,27 @@
+.developer_profile_main_section {
+  display: flex;
+  flex-direction: column;
+  margin: 1% 2% 0% 2%;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  padding: 16px;
+}
+.developer_education_box {
+  width: 32%;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  padding: 5px;
+}
+.experience_detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+.developer_main_heading {
+  font-size: 18px;
+  font-weight: 600;
+  width: 100%;
+  padding: 4px;
+  letter-spacing: 0.1rem;
+}

@@ -1,0 +1,9 @@
+.setting_element {
+  border: 1px solid #e5e6eb;
+  height: 70px;
+  border-radius: 5px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  margin-bottom: 10px;
+}

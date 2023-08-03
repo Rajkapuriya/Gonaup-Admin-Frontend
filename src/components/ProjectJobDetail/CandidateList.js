@@ -6,7 +6,6 @@ import Cookie from 'js-cookie'
 import './searchtalent.css'
 import { useParams } from 'react-router-dom'
 const CandidateList = ({ candidateList }) => {
-    debugger
     return (
         <>
             {candidateList && candidateList.map((data) => {
