@@ -24,6 +24,7 @@ const AppContent = () => {
                     <Route path="/developer-profile/:id" element={<DeveloperDetail />}></Route>
                     <Route path="/admin-setting" element={<AdminSetting />}></Route>
                     <Route path="/skill-list" element={<SkillServiceList />}></Route>
+                    <Route path="/service-list" element={<SkillServiceList />}></Route>
                 </Routes>
             </Suspense >
         </>

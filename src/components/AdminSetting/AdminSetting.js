@@ -15,7 +15,9 @@ const AdminSetting = () => {
                         <EmojiObjectsIcon />
                         <Typography variant='span'>Skills</Typography>
                     </Box>
-                    <Box className="setting_element">
+                    <Box onClick={() => {
+                        navigate('/service-list')
+                    }} className="setting_element">
                         <EmojiObjectsIcon />
                         <Typography variant='span'>Services</Typography>
                     </Box>
