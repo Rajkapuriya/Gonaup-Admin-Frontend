@@ -11,10 +11,14 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import Card from '@mui/material/Card';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
+import ProjectDetailDialog from '../ProjectDetailDialog/ProjectDetailDialog';
 const DeveloperProfile = () => {
     const { id } = useParams();
     const [developerDetail, setDeveloperDetail] = useState({})
     const [freelancerJobList, setFreelancerJobList] = useState([])
+    const [projectDetailDialogControl, setProjectDetailDialogControl] = useState({
+        status: false,
+    })
     const { mutate: GetDeveloperProfile } = useMutation(requestAdmin, {
         onSuccess: (res) => {
             setDeveloperDetail(res.data.data)
@@ -32,6 +36,9 @@ const DeveloperProfile = () => {
             },
         })
     }, [])
+    const handleClose = () => {
+        setProjectDetailDialogControl({ ...projectDetailDialogControl, status: false })
+    }
     const { mutate: GetFreelancerJobList } = useMutation(requestAdmin, {
         onSuccess: (res) => {
             setFreelancerJobList(res.data.data.data)
@@ -222,7 +229,9 @@ const DeveloperProfile = () => {
                     <Box className="d-flex row justify-content-between">
                         {developerDetail.projects && developerDetail.projects.map((data) => {
                             return <Card className="d-flex row" sx={{ maxWidth: "33%" }}>
-                                <img
+                                <img onClick={() => {
+                                    setProjectDetailDialogControl({ ...projectDetailDialogControl, status: true, id: data.id })
+                                }}
                                     src={data.project_image_url}
                                 />
                                 <Box className="d-flex">
@@ -234,6 +243,7 @@ const DeveloperProfile = () => {
                         })}
                     </Box>
                 </Box>
+                <ProjectDetailDialog projectDetailDialogControl={projectDetailDialogControl} handleClose={handleClose} />
             </Box >
         </>
     )

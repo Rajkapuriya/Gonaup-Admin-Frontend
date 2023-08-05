@@ -187,3 +187,25 @@
   text-transform: capitalize !important;
   width: 200px;
 }
+
+.sidebar_img {
+  color: #2e3591;
+  height: 24px;
+  width: 24px;
+}
+
+.sidebar_img svg {
+  color: #f1f1f1;
+}
+.selected-link {
+  background-color: #7ac144;
+  color: #fff;
+  border: none !important;
+
+  .sidebar_icon_root {
+    // background-color: $baseColor;
+    svg {
+      color: #f1f1f1;
+    }
+  }
+}

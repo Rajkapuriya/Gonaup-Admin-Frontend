@@ -13,6 +13,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import IconButton from '@mui/material/IconButton'
 import { PROJECT } from '../../constants/projectConstant'
 import DoneIcon from '@mui/icons-material/Done';
+import ProjectDetailDialog from '../ProjectDetailDialog/ProjectDetailDialog'
 const drawerWidth = 350
 const theme = createTheme({
     palette: {
@@ -45,10 +46,6 @@ const ProjectsJobsList = ({ project_type }) => {
         hiringStatus: "",
         contractStatus: "",
         jobType: ""
-    });
-    const [selectedSkillSets, setSelectedSkillSets] = useState({
-        services: [],
-        skills: []
     });
     const [serviceSkillList, setServiceSkillList] = useState({
         serviceList: [],
@@ -215,7 +212,7 @@ const ProjectsJobsList = ({ project_type }) => {
                     </Box>
                 </DrawerHeader>
                 <Divider />
-                {/* <Autocomplete
+                <Autocomplete
                     multiple
                     options={serviceSkillList.skillList}
                     getOptionLabel={(option) => option.name}
@@ -294,7 +291,7 @@ const ProjectsJobsList = ({ project_type }) => {
                             />
                         })}
                     </RadioGroup>
-                </FormControl> */}
+                </FormControl>
             </Drawer>
             <Box className="below_main_tab_section">
                 <Box className="inner_container">
@@ -357,6 +354,8 @@ const ProjectsJobsList = ({ project_type }) => {
                     </Box>
                 </Box>
             </Box>
+
+
         </Box>
     )
 }

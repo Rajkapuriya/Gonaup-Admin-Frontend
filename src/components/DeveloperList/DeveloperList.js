@@ -4,13 +4,14 @@ import { Autocomplete, Box, Button, Divider, Drawer, FormControl, FormControlLab
 import { useNavigate } from 'react-router-dom'
 import Cookie from 'js-cookie'
 import { useMutation } from 'react-query'
-import { requestAdmin } from '../../utils/axios-utils'
+import { handleApiCountryStateCityGetCall, requestAdmin } from '../../utils/axios-utils'
 import styled from '@emotion/styled'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import IconButton from '@mui/material/IconButton'
 import { PROJECT } from '../../constants/projectConstant'
 import { useTheme } from '@emotion/react'
+import { REGISTER } from '../../constants/registerConstant'
 const drawerWidth = 350
 const DeveloperList = () => {
     const navigate = useNavigate()
@@ -19,11 +20,34 @@ const DeveloperList = () => {
         serviceId: "",
         skill: "",
         hourlyRate: "",
-        hiringStatus: "",
-        contractStatus: "",
-        jobType: ""
+        country: null,
+        openForWork: null,
+        isDeleted: null
     });
     const [developerList, setDeveloperList] = useState([]);
+    const [countryList, setCountryList] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
+    const { mutate: GetCountry } = useMutation(handleApiCountryStateCityGetCall, {
+        onSuccess: (res) => {
+            setCountryList(res.data)
+        },
+        onError: (response) => {
+            console.log(response);
+        }
+    });
+    const handleGetCountryCall = async (e) => {
+        await GetCountry({
+            url: '/countries',
+            method: 'get',
+            data: {},
+            headers: {
+                'X-CSCAPI-KEY': process.env.REACT_APP_COUNTRY_STATE_CITY_API_KEY,
+            },
+        })
+    };
+    useEffect(() => {
+        handleGetCountryCall();
+    }, [])
     const [open, setOpen] = useState(false)
     const { mutate: GetDeveloperList } = useMutation(requestAdmin, {
         onSuccess: (res) => {
@@ -34,8 +58,32 @@ const DeveloperList = () => {
         }
     });
     const handleDeveloperList = () => {
+        let url = `/freelancer/list?page=1&size=10`
+        if (filterElement.serviceId) {
+            let service = filterElement.serviceId.map((data) => data.id).join(',')
+            url += `&serviceIds=${service}`;
+        }
+        if (filterElement.skill) {
+            let skill = filterElement.skill.map((data) => data.id).join(",")
+            url += `&skills=${skill}`;
+        }
+        if (filterElement.hourlyRate !== "" && filterElement.hourlyRate) {
+            url += `&hourlyRate=${parseInt(filterElement.hourlyRate)}`
+        }
+        if (filterElement.country !== "" && filterElement.country) {
+            url += `&countryId=${parseInt(filterElement.country.id)}`
+        }
+        if (filterElement.openForWork !== "" && filterElement.openForWork) {
+            url += `&openForWork=${Boolean(filterElement.openForWork)}`
+        }
+        if (filterElement.isDeleted !== "" && filterElement.isDeleted) {
+            url += `&isDeleted=${Boolean(filterElement.isDeleted)}`
+        }
+        if (searchValue !== "" && searchValue) {
+            url += `&searchQuery=${searchValue}`
+        }
         GetDeveloperList({
-            url: `/freelancer/list?page=1&size=10`,
+            url: url,
             method: 'get',
             headers: {
                 Authorization: `${Cookie.get('userToken')}`,
@@ -56,15 +104,15 @@ const DeveloperList = () => {
         setOpen(false)
     }
     const handleApplyFilter = () => {
+        handleDeveloperList();
     }
     const handleClearAllFilter = () => {
         setFilterElement({
             serviceId: null,
             skill: null,
             hourlyRate: null,
-            hiringStatus: null,
-            contractStatus: null,
-            jobType: null
+            isDeleted: null,
+            openForWork: null
         })
     }
     const { mutate: GetServiceList } = useMutation(requestAdmin, {
@@ -103,19 +151,17 @@ const DeveloperList = () => {
             },
         })
     }, [])
-    const DrawerHeader = styled('div')(({ theme }) => ({
-        display: 'flex',
-        alignItems: 'center',
-        overflowX: 'hidden',
-        padding: theme.spacing(0, 1),
-        ...theme.mixins.toolbar,
-    }))
+
     return (
         <Box className="main_tab_section">
             <Box className="tab_header">
                 <Typography variant="span">Overview</Typography>
                 <Box>
-                    <TextField variant='outlined' />
+                    <TextField value={searchValue} variant='outlined'
+                        onChange={(e) => {
+                            setSearchValue(e.target.value)
+                        }}
+                    />
                     <Button onClick={handleDrawerOpen} variant="outlined">Filter</Button>
                 </Box>
             </Box>
@@ -129,7 +175,7 @@ const DeveloperList = () => {
                 open={open}
                 anchor="right"
             >
-                <DrawerHeader className="drawer_header_section">
+                <Box className="drawer_header_section">
                     <Box className="filter_main_heading">
                         <IconButton
                             sx={{ color: '#2e3591', padding: '0px' }}
@@ -158,9 +204,9 @@ const DeveloperList = () => {
                             Apply
                         </Button>
                     </Box>
-                </DrawerHeader>
+                </Box>
                 <Divider />
-                {/* <Autocomplete
+                <Autocomplete
                     multiple
                     options={serviceSkillList.skillList}
                     getOptionLabel={(option) => option.name}
@@ -190,6 +236,20 @@ const DeveloperList = () => {
                         />
                     )}
                 />
+                <Autocomplete
+                    className="input_fields"
+                    disablePortal
+                    disableClearable
+                    options={countryList}
+                    value={filterElement?.country}
+                    onChange={(e, value) => {
+                        setFilterElement({ ...filterElement, country: value })
+                    }}
+                    getOptionLabel={option => option?.name}
+                    renderInput={params => (
+                        <TextField {...params} placeholder="Select Country" />
+                    )}
+                />
                 <TextField
                     variant="outlined"
                     label="Enter Hourly Rate"
@@ -199,47 +259,33 @@ const DeveloperList = () => {
                     }}
                 />
                 <FormControl>
-                    <FormLabel>Hiring Status</FormLabel>
+                    <FormLabel>Current Status</FormLabel>
                     <RadioGroup
-                        value={filterElement.hiringStatus}
+                        value={filterElement.openForWork}
                         onChange={(e) => {
-                            setFilterElement({ ...filterElement, hiringStatus: e.target.value })
+                            setFilterElement({ ...filterElement, openForWork: e.target.value })
                         }}
                     >
-                        {PROJECT.HIRING_STAGE.map((data) => {
-                            return <FormControlLabel value={data.id} control={<Radio />} label={data.type}
-                            />
-                        })}
-                    </RadioGroup>
-                </FormControl>
-                <FormControl>
-                    <FormLabel>Contract Status</FormLabel>
-                    <RadioGroup
-                        value={filterElement.contractStatus}
-                        onChange={(e) => {
-                            setFilterElement({ ...filterElement, contractStatus: e.target.value })
-                        }}
-                    >
-                        {PROJECT.CONTRACT_STATUS.map((data) => {
-                            return <FormControlLabel value={data.id} control={<Radio />} label={data.type}
-                            />
-                        })}
+                        <FormControlLabel value={true} control={<Radio />} label="Busy in current project"
+                        />
+                        <FormControlLabel value={false} control={<Radio />} label="open to take new opportunities "
+                        />
                     </RadioGroup>
                 </FormControl>
                 <FormControl>
                     <FormLabel>Job Type</FormLabel>
                     <RadioGroup
-                        value={filterElement.jobType}
+                        value={filterElement.isDeleted}
                         onChange={(e) => {
-                            setFilterElement({ ...filterElement, jobType: e.target.value })
+                            setFilterElement({ ...filterElement, isDeleted: e.target.value })
                         }}
                     >
-                        {PROJECT.PROJECT_STATUS.map((data) => {
+                        {REGISTER.DEVELOPER_STATUS.map((data) => {
                             return <FormControlLabel value={data.id} control={<Radio />} label={data.type}
                             />
                         })}
                     </RadioGroup>
-                </FormControl> */}
+                </FormControl>
             </Drawer>
             <Box className="below_main_tab_section">
                 <Box className="inner_container">

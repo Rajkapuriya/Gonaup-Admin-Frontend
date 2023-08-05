@@ -28,6 +28,7 @@ const SkillServiceList = () => {
             dialogTitle: ""
         }
     );
+    const [searchValue, setSearchValue] = useState('');
     const location = useLocation();
     const currentPath = location.pathname;
     const { mutate: GetSkillServiceList } = useMutation(requestAdmin, {
@@ -39,8 +40,12 @@ const SkillServiceList = () => {
         }
     });
     const handleGetSkillServiceList = () => {
+        let url = currentPath === "/skill-list" ? `/skill/list?page=1&size=10` : "/service/list?page=1&size=10"
+        if (searchValue !== "" && searchValue) {
+            url += `&searchQuery=${searchValue}`
+        }
         GetSkillServiceList({
-            url: currentPath === "/skill-list" ? `/skill/list` : "/service/list?page=1&size=10",
+            url: url,
             method: 'get',
             headers: {
                 Authorization: `${Cookie.get('userToken')}`,
@@ -112,13 +117,17 @@ const SkillServiceList = () => {
     }
     useEffect(() => {
         handleGetSkillServiceList();
-    }, [currentPath])
+    }, [currentPath, searchValue])
     return (
         <Box className="main_tab_section">
             <Box className="tab_header">
                 <Typography variant="span">Overview</Typography>
                 <Box>
-                    <TextField variant='outlined' />
+                    <TextField value={searchValue} variant='outlined'
+                        onChange={(e) => {
+                            setSearchValue(e.target.value)
+                        }}
+                    />
                     <Button onClick={() => {
                         let dialogTitle = currentPath === "/skill-list" ? "Add SKill" : "Add Service"
                         let placeholder = currentPath === "/skill-list" ? "Enter SKill" : "Enter Service"
