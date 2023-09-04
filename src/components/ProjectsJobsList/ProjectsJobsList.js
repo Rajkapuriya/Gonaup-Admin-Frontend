@@ -308,7 +308,7 @@ const ProjectsJobsList = ({ project_type }) => {
                                     <Typography variant="span">${data.min_hourly_budget}-{data.max_hourly_budget}/hr</Typography>
                                 </Box>
                                 <Typography variant="span">{data.description}</Typography>
-                                {data.skills.split(',').map((data) => {
+                                {data.skills && data.skills.split(',').map((data) => {
                                     return <Stack direction="row" spacing={1}>
                                         <Chip
                                             label={data}
@@ -323,11 +323,13 @@ const ProjectsJobsList = ({ project_type }) => {
                                             <Chip
                                                 label={`Invited: ${data.invited}`}
                                                 color="primary"
+                                                sx={{ color: "#fff" }}
                                             />
                                             <Chip
                                                 label={`Interested: ${data.interested
                                                     }`}
                                                 color="secondary"
+                                                sx={{ color: "#fff" }}
                                             />
                                             <Chip
                                                 label={`Suggested: ${data.suggested}`}
@@ -343,7 +345,7 @@ const ProjectsJobsList = ({ project_type }) => {
                                                 label="Contract Open"
                                                 color="primary"
                                             /> : <Chip
-                                                label="Contract Open"
+                                                label="Contract Closed"
                                                 color="error"
                                             />}
                                         </Stack>

@@ -67,6 +67,13 @@
   background-color: #7ac144 !important;
   color: #fff !important;
   text-transform: capitalize !important;
+  height: 40px;
+}
+.client_view_button {
+  background-color: #f1f2f6 !important;
+  color: #7ac144 !important;
+  text-transform: capitalize !important;
+  height: 40px;
 }
 .developer_title_desc {
   display: flex;
@@ -208,4 +215,11 @@
       color: #f1f1f1;
     }
   }
+}
+table td {
+  border-bottom: none !important;
+}
+.customer_list_table td,
+th {
+  text-align: center;
 }

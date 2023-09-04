@@ -319,7 +319,7 @@ const DeveloperList = () => {
                                             </TableCell>
                                             <TableCell className="customers_list_page_buttons">
                                                 <Button
-                                                    className="client_view_button common_button"
+                                                    className="client_view_button"
                                                     onClick={() => {
                                                         navigate(`/developer-profile/${row.id}`)
                                                     }}
@@ -332,7 +332,8 @@ const DeveloperList = () => {
                                 </TableBody>
                             </Table>
                         ) : (
-                            <></>
+                            <>
+                            </>
                         )}
                     </TableContainer>
                 </Box>

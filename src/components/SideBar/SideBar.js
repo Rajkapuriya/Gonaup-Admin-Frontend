@@ -25,6 +25,7 @@ import SettingGreen from '../../assets/images/Setting_green.svg'
 import SignOutWhite from '../../assets/images/Sign_Out_white.svg'
 import SignOutGreen from '../../assets/images/Sign_Out_green.svg'
 import { Context as ContextActivePage } from '../../context/pageContext/pageContext'
+import { clearLoginToken } from '../../hooks/storage'
 const SideBar = () => {
     let navigate = useNavigate()
     const [path, setPath] = useState(null)
@@ -143,6 +144,7 @@ const SideBar = () => {
                         </Typography>
                     </Box>
                     <Box onClick={() => {
+                        clearLoginToken();
                         handleNavItemClick('/signout', 'Signout')
                     }}
                         className={`sidebar_icons ${path === '/signout' && 'selected-link'

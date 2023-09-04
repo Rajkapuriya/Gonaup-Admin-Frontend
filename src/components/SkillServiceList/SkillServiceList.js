@@ -69,7 +69,6 @@ const SkillServiceList = () => {
             })
         },
         onError: (err) => {
-
         }
     });
     const handleAddUpdateSkillService = () => {
@@ -129,8 +128,8 @@ const SkillServiceList = () => {
                         }}
                     />
                     <Button onClick={() => {
-                        let dialogTitle = currentPath === "/skill-list" ? "Add SKill" : "Add Service"
-                        let placeholder = currentPath === "/skill-list" ? "Enter SKill" : "Enter Service"
+                        let dialogTitle = currentPath === "/skill-list" ? "Add Skill" : "Add Service"
+                        let placeholder = currentPath === "/skill-list" ? "Enter Skill" : "Enter Service"
                         setAddEditSkillServiceDialogControl({ ...addEditSkillServiceDialogControl, status: true, dialogTitle: dialogTitle, placeholder: placeholder, type: "add" })
                     }} variant="outlined">Add</Button>
                 </Box>
@@ -141,13 +140,13 @@ const SkillServiceList = () => {
                         return <Box className='skill_service_detail'>
                             <Typography className='admin_main_heading' variant='span'> {data.name}</Typography>
                             <ModeEditIcon onClick={() => {
-                                let dialogTitle = currentPath === "/skill-list" ? "Edit SKill" : "Edit Service"
-                                let placeholder = currentPath === "/skill-list" ? "Enter SKill" : "Enter Service"
+                                let dialogTitle = currentPath === "/skill-list" ? "Edit Skill" : "Edit Service"
+                                let placeholder = currentPath === "/skill-list" ? "Enter Skill" : "Enter Service"
                                 setAddEditSkillServiceDialogControl({ ...addEditSkillServiceDialogControl, status: true, dialogTitle: dialogTitle, value: data.name, id: data.id, placeholder: placeholder, type: "edit" })
                             }} className="circular_icon" />
                             <DeleteOutlineRoundedIcon
                                 onClick={() => {
-                                    let dialogTitle = currentPath === "/skill-list" ? "SKill" : "Service"
+                                    let dialogTitle = currentPath === "/skill-list" ? "Skill" : "Service"
                                     setDeleteSkillServiceDialogControl({ ...deleteSkillServiceDialogControl, status: true, id: data.id, dialogTitle: dialogTitle })
                                 }}
                                 className="circular_icon" />

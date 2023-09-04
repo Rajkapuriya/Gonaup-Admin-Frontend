@@ -17,7 +17,7 @@ const CandidateList = ({ candidateList }) => {
                             <Typography className='admin_main_heading' variant='span'>{data.first_name} {data.last_name} |  ${data?.hourly_rate}/hr</Typography>
                             <Typography className='sub_heading' variant='span'>{data.state_name},{data.country_name}</Typography>
                         </Box>
-                        <Button disabled={data.invited_count === 0 ? false : true} variant="outlined" className={data.invited_count === 0 ? "common_button" : "disable_button"}>Invite to Job</Button>
+                        <Button disabled={data.invited_count === 0 ? false : true} className={data.invited_count === 0 ? "common_button" : "disable_button"}>Invite to Job</Button>
                     </Box>
                     <Divider />
                 </>

@@ -131,7 +131,7 @@ const ClientRecruiterDetail = ({ project_type }) => {
                                 <Typography variant="span">{data.description}</Typography>
                                 <Box className="d-flex column justify-content-between">
                                     <Box className="d-flex column ">
-                                        {data.skills.split(',').map((data) => {
+                                        {data.skills && data.skills.split(',').map((data) => {
                                             return <Stack direction="row" spacing={1}>
                                                 <Chip
                                                     label={data}
@@ -141,11 +141,11 @@ const ClientRecruiterDetail = ({ project_type }) => {
                                             </Stack>
                                         })}</Box>
                                     <Stack direction="row" spacing={1}>
-                                        {data.project_status !== 0 ? <Chip
+                                        {data.contract_status !== 0 ? <Chip
                                             label="Contract Open"
                                             color="primary"
                                         /> : <Chip
-                                            label="Contract Open"
+                                            label="Contract Closed"
                                             color="error"
                                         />}
                                     </Stack></Box>

@@ -101,7 +101,7 @@ const ProjectJobDetail = ({ project_type }) => {
             data: {
                 projectId: projectJobDetail?.id,
                 budgetType: projectJobDetail?.budget_type,
-                commission: updateCommissionDialogControl.commission
+                commission: parseInt(updateCommissionDialogControl.commission)
             }
         })
     }
@@ -365,7 +365,7 @@ const ProjectJobDetail = ({ project_type }) => {
 
             <UpdateCommissionDialog updateCommissionDialogControl={updateCommissionDialogControl} setUpdateComissionDialogControl={setUpdateComissionDialogControl} handleUpdateCommission={handleUpdateCommission} handleClose={handleClose} />
 
-            <UpdateHiringStageDialog updateHiringStageDialogControl={updateHiringStageDialogControl} setUpdateHiringStageDialogControl={setUpdateHiringStageDialogControl} handleUpdateHiringStage={handleUpdateHiringStage} />
+            <UpdateHiringStageDialog updateHiringStageDialogControl={updateHiringStageDialogControl} setUpdateHiringStageDialogControl={setUpdateHiringStageDialogControl} handleUpdateHiringStage={handleUpdateHiringStage} handleClose={handleClose} />
 
             <UpdateContractStatusDialog updateContractStatusDialogControl={updateContractStatusDialogControl} setUpdateContractStatusDialogControl={setUpdateContractStatusDialogControl} handleClose={handleClose} handleUpdateContractStatus={handleUpdateContractStatus} />
         </Box >

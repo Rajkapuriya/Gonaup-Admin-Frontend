@@ -77,8 +77,8 @@ const SearchTalent = () => {
                         <Button onClick={() => {
                             handleInviteFreelancer(data.id)
                             debugger;
-                        }} disabled={data.invited_count === 0 ? false : true} variant="outlined" className={data.invited_count === 0 ? "common_button" : "disable_button"}>Invite to Job</Button>
-                    </Box>
+                        }} disabled={data.invited_count === 0 ? false : true} className={data.invited_count === 0 ? "common_button" : "disable_button"}>Invite to Job</Button>
+                    </Box >
                     <Divider />
                 </>
             })}
