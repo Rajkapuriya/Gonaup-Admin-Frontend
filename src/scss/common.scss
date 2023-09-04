@@ -53,6 +53,9 @@
   text-transform: capitalize !important;
   margin-left: 10px !important;
 }
+.text_button{
+  color: #7ac144 !important;
+}
 .dialog_heading {
   text-align: center;
   font-weight: 600 !important;
@@ -125,6 +128,15 @@
   align-content: center;
   align-items: center;
   padding: 8px 0px;
+}
+.tab_header_right_box{
+  display: flex !important;
+  flex-direction: row;
+  justify-content: space-around !important;
+  align-items: center;
+}
+.tab_header_right_item{
+  margin: 0px 10px 0px 10px;
 }
 .project_detail_sub_heading {
   color: #8e8e8e;

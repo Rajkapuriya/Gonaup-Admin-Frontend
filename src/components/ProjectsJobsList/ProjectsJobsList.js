@@ -162,16 +162,20 @@ const ProjectsJobsList = ({ project_type }) => {
         <Box className="main_tab_section">
             <Box className="tab_header">
                 <Typography variant="span">Overview</Typography>
-                <Box>
-                    <TextField variant='outlined' label="Search" value={searchValue}
-                        onChange={(e) => {
-                            setSearchValue(e.target.value)
-                        }}
-                    />
-                    <Button onClick={handleDrawerOpen} variant='outlined'>Filter</Button>
+                <Box className="tab_header_right_box">
+                    <Box className="tab_header_right_item">
+                        <TextField variant='outlined' label="Search" value={searchValue}
+                            onChange={(e) => {
+                                setSearchValue(e.target.value)
+                            }}
+                        />
+                    </Box>
+                    <Box className="tab_header_right_item">
+                        <Button sx={{color: '#7AC144'}} onClick={handleDrawerOpen} >Filter</Button>
+                    </Box>
                 </Box>
             </Box>
-            <Drawer
+            <Drawer className="projectlist_drawer"
                 onClose={handleDrawerClose}
                 sx={{
                     '& .MuiDrawer-paper': {
@@ -184,14 +188,14 @@ const ProjectsJobsList = ({ project_type }) => {
                 <DrawerHeader className="drawer_header_section">
                     <Box className="filter_main_heading">
                         <IconButton
-                            sx={{ color: '#2e3591', padding: '0px' }}
+                            sx={{ color: '#7AC144', padding: '0px' }}
                             disableRipple={true}
                             onClick={handleDrawerClose}
                         >
                             {theme.direction === 'rtl' ? (
-                                <ChevronLeftIcon className="chevron_icon" />
-                            ) : (
                                 <ChevronRightIcon className="chevron_icon" />
+                            ) : (
+                                <ChevronLeftIcon className="chevron_icon" />
                             )}
                         </IconButton>
                         <Typography sx={{ fontSize: '20px' }}>Filter By</Typography>
@@ -200,7 +204,7 @@ const ProjectsJobsList = ({ project_type }) => {
                         <Button className="text_button"
                             onClick={handleClearAllFilter}
                         >
-                            Reset
+                            Clear All
                         </Button>
                         <Button
                             className="common_button"

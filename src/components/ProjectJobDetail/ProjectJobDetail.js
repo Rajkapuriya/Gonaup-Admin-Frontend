@@ -280,9 +280,9 @@ const ProjectJobDetail = ({ project_type }) => {
                         <Box>
                             <Avatar alt="" src={projectJobDetail.user_image_url} />
                         </Box>
-                        <Box className="d-flex row px-2">
+                        <Box className="d-flex row px-3">
                             <Typography variant="span">{projectJobDetail.user_first_name} {projectJobDetail.user_last_name}</Typography>
-                            <Typography variant="span">{projectJobDetail.user_state}, {projectJobDetail.user_country}</Typography>
+                            <Typography variant="span">{projectJobDetail.user_state},{projectJobDetail.user_country}</Typography>
                             <Box>
                                 <img src={SkypeLogo} />
                                 <img src={LinkedinLogo} />
@@ -314,7 +314,7 @@ const ProjectJobDetail = ({ project_type }) => {
                         <Typography className="project_detail_sub_heading" variant='span'>Budget</Typography>
                         <Typography variant='span'> {
                             projectJobDetail.budget_type === 0 ?
-                                projectJobDetail.fixed_budget : "$" + projectJobDetail.min_hourly_budget + "to" + projectJobDetail.max_hourly_budget
+                                projectJobDetail.fixed_budget : "$" + projectJobDetail.min_hourly_budget + " to " + projectJobDetail.max_hourly_budget
                         }</Typography>
                     </Box>
                     <Divider />
