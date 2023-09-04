@@ -5,6 +5,7 @@ import { useMutation } from 'react-query';
 import Cookie from 'js-cookie';
 import DoneIcon from '@mui/icons-material/Done';
 import moment from 'moment/moment';
+import RectangularChip from '../RectangularChip/RectangularChip';
 
 const ProjectDetailDialog = ({ projectDetailDialogControl, handleClose }) => {
     const [projectDetail, setProjectDetail] = useState({});
@@ -43,7 +44,7 @@ const ProjectDetailDialog = ({ projectDetailDialogControl, handleClose }) => {
                     <Typography variant="span">{projectDetail.project_url}</Typography>
                     <Typography variant="span">Skills</Typography>
                     {projectDetail.skills && projectDetail.skills.map((chip) => (
-                        <Chip
+                        <RectangularChip
                             variant="outlined"
                             color="success"
                             key={chip.id}
