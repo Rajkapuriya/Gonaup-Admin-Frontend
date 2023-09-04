@@ -23,6 +23,7 @@ import UpdateHiringStageDialog from './UpdateHiringStageDialog'
 import UpdateContractStatusDialog from './UpdateContractStatusDialog'
 import SearchTalent from './SearchTalent'
 import CandidateList from './CandidateList'
+import RectangularChip from '../RectangularChip/RectangularChip'
 const theme = createTheme({
     palette: {
         primary: {
@@ -246,7 +247,7 @@ const ProjectJobDetail = ({ project_type }) => {
                         <Stack direction="row" spacing={1}>
                             {projectJobDetail.skills && projectJobDetail.skills.map((data) => {
                                 return <Stack direction="row" spacing={1}>
-                                    <Chip
+                                    <RectangularChip
                                         label={data.name}
                                         variant="outlined"
                                     />
@@ -256,8 +257,8 @@ const ProjectJobDetail = ({ project_type }) => {
                     </Box>
                     <Box>
                         <TabContext value={value}>
-                            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                                <TabList onChange={handleChange} aria-label="lab API tabs example">
+                            <Box sx={{ borderBottom: 1, borderColor: 'divider', textTransform: "capitalize" }}>
+                                <TabList onChange={handleChange}>
                                     <Tab label="Search" value="search" />
                                     <Tab label="Invited" value="0" />
                                     <Tab label="Interested" value="1" />
