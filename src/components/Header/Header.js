@@ -71,7 +71,7 @@ const Header = () => {
                                 navigate('/notification')
                             }}
                             variant="span"
-                            sx={{ marginRight: '10px', color: '#2E3591' }}
+                            sx={{ marginRight: '10px', color: '#7AC144' }}
                         />
                         <Stack
                             sx={{

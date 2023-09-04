@@ -23,3 +23,12 @@
   font-weight: 400;
   font-size: 15px;
 }
+.drawer_header_section {
+  display: flex !important;
+  flex-direction: row;
+  justify-content: space-between !important;
+  align-items: center;
+}
+.filter_main_heading{
+  display: flex;
+}
