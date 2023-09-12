@@ -11,6 +11,7 @@ const UpdateContractStatusDialog = ({ updateContractStatusDialogControl, setUpda
             <Dialog
                 open={updateContractStatusDialogControl.status}
                 onClose={handleClose}
+                className='dialog-width'
             >
                 <Box className="text-center">
                     <Typography className="developer_main_heading" variant="span">Update Contract Status</Typography>

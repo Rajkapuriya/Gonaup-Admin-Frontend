@@ -1,0 +1,8 @@
+.user_profile_image {
+  height: 100px !important;
+  width: 100px !important;
+  color: #f1f2f6 !important;
+  border-radius: 50%;
+  background-color: #e5e5e5;
+  margin-left: 15px;
+}

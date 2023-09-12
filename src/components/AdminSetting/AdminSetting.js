@@ -18,7 +18,7 @@ const AdminSetting = () => {
                         <Box className="skill_service_icon">
                             <img src={SkillIcon} />
                         </Box>
-                        <Typography variant='span'>Skills</Typography>
+                        <Typography className='admin_main_heading' variant='span'>Skills</Typography>
                     </Box>
                     <Box onClick={() => {
                         navigate('/service-list')
@@ -26,7 +26,7 @@ const AdminSetting = () => {
                         <Box className="skill_service_icon">
                             <img src={ServiceIcon} />
                         </Box>
-                        <Typography variant='span'>Services</Typography>
+                        <Typography className='admin_main_heading' variant='span'>Services</Typography>
                     </Box>
                 </Box>
             </Box>

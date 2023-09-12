@@ -1,4 +1,4 @@
-import { Button, Chip, Dialog, DialogActions, DialogContent, Typography } from '@mui/material'
+import { Button, Chip, Dialog, DialogActions, DialogContent, Stack, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { requestAdmin } from '../../utils/axios-utils';
 import { useMutation } from 'react-query';
@@ -43,16 +43,17 @@ const ProjectDetailDialog = ({ projectDetailDialogControl, handleClose }) => {
                     <Typography variant="span">Project URL</Typography>
                     <Typography variant="span">{projectDetail.project_url}</Typography>
                     <Typography variant="span">Skills</Typography>
-                    {projectDetail.skills && projectDetail.skills.map((chip) => (
-                        <RectangularChip
-                            variant="outlined"
-                            color="success"
-                            key={chip.id}
-                            deleteIcon={<DoneIcon />}
-                            label={chip.name}
-                            style={{ margin: '4px' }}
-                        />
-                    ))}
+                    <Stack direction="row">
+                        {projectDetail.skills && projectDetail.skills.map((chip) => (
+                            <RectangularChip
+                                color="success"
+                                key={chip.id}
+                                deleteIcon={<DoneIcon />}
+                                label={chip.name}
+                                style={{ margin: '4px' }}
+                            />
+                        ))}
+                    </Stack>
                     <Typography variant='span'>Overview</Typography>
                     <Typography variant="span">{projectDetail.description}</Typography>
                 </DialogContent>

@@ -14,6 +14,8 @@ import IconButton from '@mui/material/IconButton'
 import { PROJECT } from '../../constants/projectConstant'
 import DoneIcon from '@mui/icons-material/Done';
 import ProjectDetailDialog from '../ProjectDetailDialog/ProjectDetailDialog'
+import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
+import RectangularChip from '../RectangularChip/RectangularChip'
 const drawerWidth = 350
 const theme = createTheme({
     palette: {
@@ -171,7 +173,9 @@ const ProjectsJobsList = ({ project_type }) => {
                         />
                     </Box>
                     <Box className="tab_header_right_item">
-                        <Button sx={{color: '#7AC144'}} onClick={handleDrawerOpen} >Filter</Button>
+                        <Button className="filter_button" onClick={handleDrawerOpen} >
+                            <TuneRoundedIcon />
+                            Filter</Button>
                     </Box>
                 </Box>
             </Box>
@@ -312,14 +316,15 @@ const ProjectsJobsList = ({ project_type }) => {
                                     <Typography variant="span">${data.min_hourly_budget}-{data.max_hourly_budget}/hr</Typography>
                                 </Box>
                                 <Typography variant="span">{data.description}</Typography>
-                                {data.skills && data.skills.split(',').map((data) => {
-                                    return <Stack direction="row" spacing={1}>
-                                        <Chip
+                                <Stack direction="row" spacing={1}>
+                                    {data.skills && data.skills.split(',').map((data) => {
+                                        return <RectangularChip
+                                            color="success"
+                                            style={{ margin: '4px' }}
                                             label={data}
-                                            variant="outlined"
                                         />
-                                    </Stack>
-                                })}
+                                    })}
+                                </Stack>
                                 <Divider className="my-2" />
                                 <ThemeProvider theme={theme}>
                                     <Box className="d-flex justify-content-between">
@@ -345,7 +350,7 @@ const ProjectsJobsList = ({ project_type }) => {
                                             />
                                         </Stack>
                                         <Stack direction="row" spacing={1}>
-                                            {data.project_status !== 0 ? <Chip
+                                            {data.contract_status === 0 ? <Chip
                                                 label="Contract Open"
                                                 color="primary"
                                             /> : <Chip

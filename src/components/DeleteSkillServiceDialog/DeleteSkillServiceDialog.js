@@ -13,7 +13,6 @@ const DeleteSkillServiceDialog = ({ handleClose, deleteSkillServiceDialogControl
                     <Typography className="developer_main_heading" variant="span">Are You Sure you want to Delete  {deleteSkillServiceDialogControl.dialogTitle}</Typography>
                 </Box>
                 <DialogContent>
-
                 </DialogContent>
                 <DialogActions className='d-flex justify-content-center'>
                     <Button className="save_button"

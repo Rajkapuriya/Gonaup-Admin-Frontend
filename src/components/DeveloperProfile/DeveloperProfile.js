@@ -12,6 +12,7 @@ import Card from '@mui/material/Card';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
 import ProjectDetailDialog from '../ProjectDetailDialog/ProjectDetailDialog';
+import RectangularChip from '../RectangularChip/RectangularChip';
 const DeveloperProfile = () => {
     const { id } = useParams();
     const [developerDetail, setDeveloperDetail] = useState({})
@@ -69,7 +70,7 @@ const DeveloperProfile = () => {
                         </Box>
                     </Box>
                 </Box>
-                <Typography>{developerDetail?.description}</Typography>
+                <Typography className='developer_description' variant="span" >{developerDetail?.description}</Typography>
             </Box>
             <Box className="d-flex column">
                 <Box>
@@ -80,8 +81,7 @@ const DeveloperProfile = () => {
                             </Box>
                             <Box>
                                 {developerDetail.skills && developerDetail.skills.map((chip) => (
-                                    <Chip
-                                        variant="outlined"
+                                    <RectangularChip
                                         color="success"
                                         key={chip.id}
                                         deleteIcon={<DoneIcon />}
@@ -90,8 +90,7 @@ const DeveloperProfile = () => {
                                     />
                                 ))}
                                 {developerDetail.services_offer && developerDetail.services_offer.map((chip) => (
-                                    <Chip
-                                        variant="outlined"
+                                    <RectangularChip
                                         color="success"
                                         key={chip.id}
                                         deleteIcon={<DoneIcon />}
@@ -181,7 +180,6 @@ const DeveloperProfile = () => {
                     </Box >
                 </Box>
             </Box>
-
             <Box className="developer_profile_main_section ">
                 <Box className="developer_title_desc">
                     <Box className="d-flex column">
@@ -214,7 +212,8 @@ const DeveloperProfile = () => {
                             <Box className="experience_detail">
                                 <Box className="d-flex row">
                                     <Typography className="h5" variant='span'>{data.title}| {data.company}</Typography>
-                                    <Typography className='sub_heading' variant='span'>{data.working_from} - {data.working_to}</Typography>
+                                    <Typography className='sub_heading' variant='span'>
+                                        {moment(data.working_from).format("MMM YY")} - {moment(data.working_to).format("MMM YY")}</Typography>
                                 </Box>
                             </Box>
                         </Box>
@@ -228,7 +227,7 @@ const DeveloperProfile = () => {
                     </Box>
                     <Box className="d-flex row justify-content-between">
                         {developerDetail.projects && developerDetail.projects.map((data) => {
-                            return <Card className="d-flex row" sx={{ maxWidth: "33%" }}>
+                            return <Card className="d-flex mx-2" sx={{ maxWidth: "33%" }}>
                                 <img onClick={() => {
                                     setProjectDetailDialogControl({ ...projectDetailDialogControl, status: true, id: data.id })
                                 }}

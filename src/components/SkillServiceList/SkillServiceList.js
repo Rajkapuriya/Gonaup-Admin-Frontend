@@ -1,6 +1,7 @@
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { Box, Button, Divider, TextField, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import './index.css'
+import { InputBase, Paper } from '@mui/material'
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import Cookie from 'js-cookie';
@@ -9,6 +10,9 @@ import { requestAdmin } from '../../utils/axios-utils';
 import { useLocation } from 'react-router-dom';
 import AddEditSkillServiceDialog from '../AddEditSkillServiceDialog/AddEditSkillServiceDialog';
 import DeleteSkillServiceDialog from '../DeleteSkillServiceDialog/DeleteSkillServiceDialog';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
 const SkillServiceList = () => {
     const [skillServiceList, setSkillServiceList] = useState([])
     const [addEditSkillServiceDialogControl, setAddEditSkillServiceDialogControl] = useState(
@@ -121,17 +125,34 @@ const SkillServiceList = () => {
         <Box className="main_tab_section">
             <Box className="tab_header">
                 <Typography variant="span">Overview</Typography>
-                <Box>
-                    <TextField value={searchValue} variant='outlined'
-                        onChange={(e) => {
-                            setSearchValue(e.target.value)
-                        }}
-                    />
-                    <Button onClick={() => {
-                        let dialogTitle = currentPath === "/skill-list" ? "Add Skill" : "Add Service"
-                        let placeholder = currentPath === "/skill-list" ? "Enter Skill" : "Enter Service"
-                        setAddEditSkillServiceDialogControl({ ...addEditSkillServiceDialogControl, status: true, dialogTitle: dialogTitle, placeholder: placeholder, type: "add" })
-                    }} variant="outlined">Add</Button>
+                <Box className="tab_header_right_box">
+                    <Box className="tab_header_right_item">
+                        <Paper
+                            component="form"
+                            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 250, boxShadow: "none" }}
+                        >
+                            <InputBase
+                                sx={{ ml: 1, flex: 1 }}
+                                placeholder="Search"
+                                inputProps={{ 'aria-label': 'search ' }}
+                                value={searchValue}
+                                onChange={(e) => {
+                                    setSearchValue(e.target.value)
+                                }}
+                            />
+                            <Divider orientation="vertical" flexItem />
+                            {/* <IconButton color="success" sx={{ p: '10px' }} aria-label="directions"> */}
+                            <SearchIcon />
+                            {/* </IconButton> */}
+                        </Paper>
+                    </Box>
+                    <Box className="tab_header_right_item">
+                        <Button onClick={() => {
+                            let dialogTitle = currentPath === "/skill-list" ? "Add Skill" : "Add Service"
+                            let placeholder = currentPath === "/skill-list" ? "Enter Skill" : "Enter Service"
+                            setAddEditSkillServiceDialogControl({ ...addEditSkillServiceDialogControl, status: true, dialogTitle: dialogTitle, placeholder: placeholder, type: "add" })
+                        }} className='common_header_button'><AddRoundedIcon /> Add</Button>
+                    </Box>
                 </Box>
             </Box>
             <Box className="below_main_tab_section">
@@ -151,8 +172,7 @@ const SkillServiceList = () => {
                                 }}
                                 className="circular_icon" />
                         </Box>
-                    })
-                    }
+                    })}
                 </Box>
             </Box>
             <AddEditSkillServiceDialog addEditSkillServiceDialogControl={addEditSkillServiceDialogControl} setAddEditSkillServiceDialogControl={setAddEditSkillServiceDialogControl} handleClose={handleClose} handleAddUpdateSkillService={handleAddUpdateSkillService} />

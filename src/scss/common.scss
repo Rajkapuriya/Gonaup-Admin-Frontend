@@ -53,7 +53,7 @@
   text-transform: capitalize !important;
   margin-left: 10px !important;
 }
-.text_button{
+.text_button {
   color: #7ac144 !important;
 }
 .dialog_heading {
@@ -129,13 +129,13 @@
   align-items: center;
   padding: 8px 0px;
 }
-.tab_header_right_box{
+.tab_header_right_box {
   display: flex !important;
   flex-direction: row;
   justify-content: space-around !important;
   align-items: center;
 }
-.tab_header_right_item{
+.tab_header_right_item {
   margin: 0px 10px 0px 10px;
 }
 .project_detail_sub_heading {
@@ -234,4 +234,44 @@ table td {
 .customer_list_table td,
 .customer_list_table th {
   text-align: center;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #ddd;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 3px;
+}
+
+::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #8e8e8e !important;
+  opacity: 0.6;
+}
+.table_header th {
+  background-color: #f1f2f6;
+  border-bottom: none;
+}
+
+.table_header th:first-of-type {
+  border-radius: 5px 0 0 5px;
+}
+
+.table_header th:last-of-type {
+  border-radius: 0 5px 5px 0;
+}
+.filter_button {
+  background-color: #fff !important;
+  text-transform: capitalize !important;
+  height: auto;
+  color: #7ac144 !important;
 }

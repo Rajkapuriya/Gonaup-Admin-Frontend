@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Autocomplete, Box, Button, Divider, Drawer, FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material'
+import { Autocomplete, Box, Button, Divider, Drawer, FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, InputBase } from '@mui/material'
 // import './index.css'
 import { useNavigate } from 'react-router-dom'
 import Cookie from 'js-cookie'
@@ -11,6 +11,8 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import IconButton from '@mui/material/IconButton'
 import { PROJECT } from '../../constants/projectConstant'
 import { useTheme } from '@emotion/react'
+import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
+import SearchIcon from '@mui/icons-material/Search';
 import { REGISTER } from '../../constants/registerConstant'
 const drawerWidth = 350
 const DeveloperList = () => {
@@ -156,13 +158,30 @@ const DeveloperList = () => {
         <Box className="main_tab_section">
             <Box className="tab_header">
                 <Typography variant="span">Overview</Typography>
-                <Box>
-                    <TextField value={searchValue} variant='outlined'
-                        onChange={(e) => {
-                            setSearchValue(e.target.value)
-                        }}
-                    />
-                    <Button onClick={handleDrawerOpen} variant="outlined">Filter</Button>
+                <Box className="tab_header_right_box">
+                    <Box className="tab_header_right_item">
+                        <Paper
+                            component="form"
+                            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 300, boxShadow: "none" }}
+                        >
+                            <InputBase
+                                value={searchValue}
+                                onChange={(e) => {
+                                    setSearchValue(e.target.value)
+                                }}
+                                sx={{ ml: 1, flex: 1 }}
+                                placeholder="Search"
+                                inputProps={{ 'aria-label': 'search ' }}
+                            />
+                            <Divider orientation="vertical" flexItem />
+                            {/* <IconButton color="success" sx={{ p: '10px' }} aria-label="directions"> */}
+                            <SearchIcon />
+                            {/* </IconButton> */}
+                        </Paper>
+                    </Box>
+                    <Box className="tab_header_right_item">
+                        <Button className="filter_button" onClick={handleDrawerOpen} ><TuneRoundedIcon />Filter</Button>
+                    </Box>
                 </Box>
             </Box>
             <Drawer
@@ -268,7 +287,7 @@ const DeveloperList = () => {
                     >
                         <FormControlLabel value={true} control={<Radio />} label="Busy in current project"
                         />
-                        <FormControlLabel value={false} control={<Radio />} label="open to take new opportunities "
+                        <FormControlLabel value={false} control={<Radio />} label="open to take new opportunities"
                         />
                     </RadioGroup>
                 </FormControl>
@@ -298,15 +317,13 @@ const DeveloperList = () => {
                                 className="customer_list_table"
                                 stickyHeader
                             >
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Name</TableCell>
-                                        <TableCell>Country</TableCell>
-                                        <TableCell>Open Projects</TableCell>
-                                        <TableCell>Total Projects</TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                    </TableRow>
+                                <TableHead className="table_header">
+                                    <TableCell>Name</TableCell>
+                                    <TableCell>Country</TableCell>
+                                    <TableCell>Open Projects</TableCell>
+                                    <TableCell>Total Projects</TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
                                 </TableHead>
                                 <TableBody>
                                     {developerList.map((row, index) => (

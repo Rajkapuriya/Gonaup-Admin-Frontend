@@ -160,7 +160,7 @@ const ClientRecruiterDetail = ({ project_type }) => {
                                 >Close Account</Button>
                             </Box>
                             <Box className="d-flex row">
-                                <Box className="d-flex column w-50 align-items-end p-3" >
+                                <Box className="d-flex column w-50 p-3" >
                                     <Avatar
                                         alt="Remy Sharp"
                                         src="/static/images/avatar/1.jpg"
@@ -183,7 +183,7 @@ const ClientRecruiterDetail = ({ project_type }) => {
                                         </Box>
                                     </Box>
                                 </Box>
-                                <Box className="d-flex column w-50 align-items-end p-3 ">
+                                <Box className="d-flex column w-50 p-3 ">
                                     <Box className="d-flex row px-2">
                                         <Box className="d-flex row">
                                             <Typography variant='span' sx={{ color: "#8E8E8E" }}>Website</Typography>
@@ -230,7 +230,7 @@ const ClientRecruiterDetail = ({ project_type }) => {
                                         </Box>
                                     </Box>
                                 </Box>
-                                <Box className="d-flex column w-50 align-items-end p-3 ">
+                                <Box className="d-flex column w-50 p-3">
                                     <Box className="d-flex row px-2">
                                         <Box className="d-flex row">
                                             <Typography variant='span' sx={{ color: "#8E8E8E" }}>Skype</Typography>

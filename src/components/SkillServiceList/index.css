@@ -3,3 +3,8 @@
   border-radius: 5px;
   padding: 10px;
 }
+.common_header_button {
+  background-color: #fff !important;
+  text-transform: capitalize !important;
+  color: #7ac144 !important;
+}

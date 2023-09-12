@@ -9,6 +9,7 @@ import moment from 'moment'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import EditIcon from '@mui/icons-material/Edit';
 import DeveloperProfile from '../DeveloperProfile/DeveloperProfile'
+import Logo from '../../assets/images/logo.svg'
 const DeveloperDetail = () => {
     const { id } = useParams();
     const [developerProfileDetail, setDeveloperProfileDetail] = useState({});
@@ -39,8 +40,8 @@ const DeveloperDetail = () => {
                     <Box>
                         {developerProfileDetail?.image_url ? (
                             <img
-                                src={developerProfileDetail?.image_url}
-                                className="user_profile_icon"
+                                src={Logo}
+                                className="user_profile_image"
                                 alt={developerProfileDetail.first_name}
                             />
                         ) : (
@@ -51,7 +52,7 @@ const DeveloperDetail = () => {
                         <Typography className="username_text" variant="span">
                             {developerProfileDetail?.first_name + " " + developerProfileDetail?.last_name || '-'}
                         </Typography>
-                        <Typography variant="span" sx={{ marginTop: '5px' }}>
+                        <Typography variant="span" sx={{ marginTop: '5px', color: "#8E8E8E" }}>
                             {developerProfileDetail?.state_name + "," + developerProfileDetail.country_name || '-'}
                         </Typography>
                     </Box>

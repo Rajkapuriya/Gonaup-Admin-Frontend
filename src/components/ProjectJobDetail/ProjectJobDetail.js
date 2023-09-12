@@ -249,7 +249,6 @@ const ProjectJobDetail = ({ project_type }) => {
                                 return <Stack direction="row" spacing={1}>
                                     <RectangularChip
                                         label={data.name}
-                                        variant="outlined"
                                     />
                                 </Stack>
                             })}
@@ -257,13 +256,13 @@ const ProjectJobDetail = ({ project_type }) => {
                     </Box>
                     <Box>
                         <TabContext value={value}>
-                            <Box sx={{ borderBottom: 1, borderColor: 'divider', textTransform: "capitalize" }}>
+                            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                 <TabList onChange={handleChange}>
-                                    <Tab label="Search" value="search" />
-                                    <Tab label="Invited" value="0" />
-                                    <Tab label="Interested" value="1" />
-                                    <Tab label="Shortlisted" value="2" />
-                                    <Tab label="Hired" value="3" />
+                                    <Tab sx={{ textTransform: "capitalize" }} label="Search" value="search" />
+                                    <Tab sx={{ textTransform: "capitalize" }} label="Invited" value="0" />
+                                    <Tab sx={{ textTransform: "capitalize" }} label="Interested" value="1" />
+                                    <Tab sx={{ textTransform: "capitalize" }} label="Shortlisted" value="2" />
+                                    <Tab sx={{ textTransform: "capitalize" }} label="Hired" value="3" />
                                 </TabList>
                             </Box>
                             <TabPanel value="search">
