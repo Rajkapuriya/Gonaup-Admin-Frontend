@@ -1,20 +1,26 @@
 import { Avatar, Box, Button, Divider, TextField, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useMutation } from 'react-query'
 import { requestAdmin } from '../../utils/axios-utils'
 import Cookie from 'js-cookie'
 import './searchtalent.css'
+import { Context as ContextSnackbar } from '../../context/notificationcontext/notificationcontext'
 import { useParams } from 'react-router-dom'
 const SearchTalent = () => {
     const { id } = useParams();
     const [searchTalent, setSearchTalent] = useState("")
     const [talentList, setTalentList] = useState([])
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const { mutate: GetProjectJobDetail } = useMutation(requestAdmin, {
         onSuccess: (res) => {
             setTalentList(res.data.data)
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleGetProjectJobDetail = () => {
@@ -35,10 +41,11 @@ const SearchTalent = () => {
     }, [searchTalent])
     const { mutate: InviteFreelancer } = useMutation(requestAdmin, {
         onSuccess: (res) => {
-
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleInviteFreelancer = (userId) => {
@@ -54,7 +61,6 @@ const SearchTalent = () => {
             }
         })
     }
-
     return (
         <>
             <TextField

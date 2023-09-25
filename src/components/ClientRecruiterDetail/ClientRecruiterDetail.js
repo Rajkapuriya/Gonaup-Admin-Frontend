@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Avatar, Box, Button, Chip, Divider, Stack, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ThemeProvider, Typography } from '@mui/material'
 import './index.css'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -9,10 +9,13 @@ import moment from 'moment'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import EditIcon from '@mui/icons-material/Edit';
+import { Context as ContextSnackbar } from '../../context/notificationcontext/notificationcontext'
 const ClientRecruiterDetail = ({ project_type }) => {
     const navigate = useNavigate()
     const { id } = useParams();
     const [activePage, setActivePage] = useState("2");
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [clientRecruiterProfileDetail, setClientRecruiterProfileDetail] = useState({});
     const [projectList, setProjectList] = useState([]);
     const [companyProfile, setCompanyProfile] = useState({})
@@ -21,7 +24,9 @@ const ClientRecruiterDetail = ({ project_type }) => {
             setClientRecruiterProfileDetail(res.data.data)
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleChange = (event, newValue) => {
@@ -44,7 +49,9 @@ const ClientRecruiterDetail = ({ project_type }) => {
             setProjectList(res.data.data.data)
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleGetProjectList = () => {
@@ -64,7 +71,9 @@ const ClientRecruiterDetail = ({ project_type }) => {
             setCompanyProfile(res.data.data)
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleGetCompanyProfile = () => {

@@ -14,7 +14,6 @@ const App = () => {
         <Suspense>
           <Routes>
             <Route exact path="/login" name="Login Page" element={<AdminLogin />} />
-
             <Route path="*" element={<DefaultLayout />} />
           </Routes>
         </Suspense>

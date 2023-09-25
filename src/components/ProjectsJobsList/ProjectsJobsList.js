@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Autocomplete, Box, Button, Chip, Divider, Drawer, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, Stack, TextField, Typography } from '@mui/material'
 import './index.css'
 import { useNavigate } from 'react-router-dom'
@@ -16,6 +16,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import ProjectDetailDialog from '../ProjectDetailDialog/ProjectDetailDialog'
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import RectangularChip from '../RectangularChip/RectangularChip'
+import { Context as ContextSnackbar } from '../../context/notificationcontext/notificationcontext'
 const drawerWidth = 350
 const theme = createTheme({
     palette: {
@@ -41,6 +42,8 @@ const ProjectsJobsList = ({ project_type }) => {
     const [projectList, setProjectList] = useState([]);
     const [open, setOpen] = useState(false)
     const [searchValue, setSearchValue] = useState('');
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [filterElement, setFilterElement] = useState({
         serviceId: "",
         skill: "",
@@ -61,6 +64,9 @@ const ProjectsJobsList = ({ project_type }) => {
             }));
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const { mutate: GetSkillList } = useMutation(requestAdmin, {
@@ -71,6 +77,9 @@ const ProjectsJobsList = ({ project_type }) => {
             }));
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {
@@ -94,7 +103,9 @@ const ProjectsJobsList = ({ project_type }) => {
             setProjectList(res.data.data.data)
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleDrawerOpen = () => {

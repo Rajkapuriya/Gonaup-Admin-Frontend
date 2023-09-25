@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, Button, Checkbox, Divider, FormControlLabel, FormGroup, InputBase, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material'
 // import './index.css'
 import { useNavigate } from 'react-router-dom'
@@ -8,9 +8,13 @@ import { requestAdmin } from '../../utils/axios-utils'
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import moment from 'moment'
+import { Context as ContextSnackbar } from '../../context/notificationcontext/notificationcontext'
+
 const ClientRecruiterList = ({ user_type }) => {
     const navigate = useNavigate()
     const [clientRecruiterList, setClientRecruiterList] = useState([]);
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const { mutate: GetClientRecruiterList } = useMutation(requestAdmin, {
         onSuccess: (res) => {
             setClientRecruiterList(res.data.data.data)
@@ -18,7 +22,9 @@ const ClientRecruiterList = ({ user_type }) => {
         onError: (err) => {
             console.log(err);
             setClientRecruiterList([])
-
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleClientRecruiterList = () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Autocomplete, Box, Button, Divider, Drawer, FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, InputBase } from '@mui/material'
 // import './index.css'
 import { useNavigate } from 'react-router-dom'
@@ -14,6 +14,7 @@ import { useTheme } from '@emotion/react'
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import SearchIcon from '@mui/icons-material/Search';
 import { REGISTER } from '../../constants/registerConstant'
+import { Context as ContextSnackbar } from '../../context/notificationcontext/notificationcontext'
 const drawerWidth = 350
 const DeveloperList = () => {
     const navigate = useNavigate()
@@ -29,12 +30,16 @@ const DeveloperList = () => {
     const [developerList, setDeveloperList] = useState([]);
     const [countryList, setCountryList] = useState([]);
     const [searchValue, setSearchValue] = useState('');
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const { mutate: GetCountry } = useMutation(handleApiCountryStateCityGetCall, {
         onSuccess: (res) => {
             setCountryList(res.data)
         },
-        onError: (response) => {
-            console.log(response);
+        onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleGetCountryCall = async (e) => {
@@ -57,6 +62,9 @@ const DeveloperList = () => {
         },
         onError: (err) => {
             setDeveloperList([])
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleDeveloperList = () => {
@@ -125,6 +133,9 @@ const DeveloperList = () => {
             }));
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const { mutate: GetSkillList } = useMutation(requestAdmin, {
@@ -135,6 +146,9 @@ const DeveloperList = () => {
             }));
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {

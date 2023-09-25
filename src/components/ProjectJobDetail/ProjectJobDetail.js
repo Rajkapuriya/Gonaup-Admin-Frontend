@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Avatar, Box, Button, Chip, Divider, Stack, Tab, TextField, Typography } from '@mui/material'
 import './index.css'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
@@ -24,6 +24,7 @@ import UpdateContractStatusDialog from './UpdateContractStatusDialog'
 import SearchTalent from './SearchTalent'
 import CandidateList from './CandidateList'
 import RectangularChip from '../RectangularChip/RectangularChip'
+import { Context as ContextSnackbar } from '../../context/notificationcontext/notificationcontext'
 const theme = createTheme({
     palette: {
         primary: {
@@ -66,12 +67,16 @@ const ProjectJobDetail = ({ project_type }) => {
         contractStatus: ''
     })
     const [candidateList, setCandidateList] = useState([])
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const { mutate: GetProjectJobDetail } = useMutation(requestAdmin, {
         onSuccess: (res) => {
             setProjectJobDetail(res.data.data)
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleGetProjectJobDetail = () => {
@@ -109,9 +114,17 @@ const ProjectJobDetail = ({ project_type }) => {
     const { mutate: DeleteProject } = useMutation(requestAdmin, {
         onSuccess: (res) => {
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleDeleteProject = () => {
@@ -130,9 +143,16 @@ const ProjectJobDetail = ({ project_type }) => {
     const { mutate: UpdateHiringStage } = useMutation(requestAdmin, {
         onSuccess: (res) => {
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleUpdateHiringStage = () => {
@@ -151,9 +171,16 @@ const ProjectJobDetail = ({ project_type }) => {
     const { mutate: UpdateContractStatus } = useMutation(requestAdmin, {
         onSuccess: (res) => {
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleUpdateContractStatus = () => {
@@ -175,6 +202,9 @@ const ProjectJobDetail = ({ project_type }) => {
             setCandidateList(res.data.data.data)
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
             console.log(err);
         }
     });

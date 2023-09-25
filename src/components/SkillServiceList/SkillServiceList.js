@@ -1,5 +1,5 @@
 import { Box, Button, Divider, TextField, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './index.css'
 import { InputBase, Paper } from '@mui/material'
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
@@ -13,8 +13,11 @@ import DeleteSkillServiceDialog from '../DeleteSkillServiceDialog/DeleteSkillSer
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
+import { Context as ContextSnackbar } from '../../context/notificationcontext/notificationcontext'
 const SkillServiceList = () => {
     const [skillServiceList, setSkillServiceList] = useState([])
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [addEditSkillServiceDialogControl, setAddEditSkillServiceDialogControl] = useState(
         {
             status: false,
@@ -38,9 +41,17 @@ const SkillServiceList = () => {
     const { mutate: GetSkillServiceList } = useMutation(requestAdmin, {
         onSuccess: (res) => {
             setSkillServiceList(currentPath === "/skill-list" ? res.data.data.skillList : res.data.data.serviceList)
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleGetSkillServiceList = () => {
@@ -71,8 +82,16 @@ const SkillServiceList = () => {
                 id: "",
                 type: ""
             })
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleAddUpdateSkillService = () => {
@@ -97,8 +116,16 @@ const SkillServiceList = () => {
     const { mutate: DeleteSkillService } = useMutation(requestAdmin, {
         onSuccess: (res) => {
             setDeleteSkillServiceDialogControl({ ...deleteSkillServiceDialogControl, status: false, id: "" })
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleDeleteSkillService = () => {

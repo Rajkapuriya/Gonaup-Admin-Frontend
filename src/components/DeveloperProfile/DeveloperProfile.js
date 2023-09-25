@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Chip, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './index.css'
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import Cookie from 'js-cookie';
@@ -13,10 +13,13 @@ import { useParams } from 'react-router-dom';
 import moment from 'moment';
 import ProjectDetailDialog from '../ProjectDetailDialog/ProjectDetailDialog';
 import RectangularChip from '../RectangularChip/RectangularChip';
+import { Context as ContextSnackbar } from '../../context/notificationcontext/notificationcontext'
 const DeveloperProfile = () => {
     const { id } = useParams();
     const [developerDetail, setDeveloperDetail] = useState({})
     const [freelancerJobList, setFreelancerJobList] = useState([])
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [projectDetailDialogControl, setProjectDetailDialogControl] = useState({
         status: false,
     })
@@ -25,7 +28,9 @@ const DeveloperProfile = () => {
             setDeveloperDetail(res.data.data)
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {
@@ -45,7 +50,9 @@ const DeveloperProfile = () => {
             setFreelancerJobList(res.data.data.data)
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {

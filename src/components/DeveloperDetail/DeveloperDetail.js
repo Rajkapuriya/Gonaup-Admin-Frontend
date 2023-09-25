@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Avatar, Box, Button, Divider, Stack, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ThemeProvider, Typography } from '@mui/material'
 import './index.css'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -10,15 +10,20 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import EditIcon from '@mui/icons-material/Edit';
 import DeveloperProfile from '../DeveloperProfile/DeveloperProfile'
 import Logo from '../../assets/images/logo.svg'
+import { Context as ContextSnackbar } from '../../context/notificationcontext/notificationcontext'
 const DeveloperDetail = () => {
     const { id } = useParams();
     const [developerProfileDetail, setDeveloperProfileDetail] = useState({});
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const { mutate: GetDeveloperDetail } = useMutation(requestAdmin, {
         onSuccess: (res) => {
             setDeveloperProfileDetail(res.data.data)
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleGetDeveloperDetailProfile = () => {

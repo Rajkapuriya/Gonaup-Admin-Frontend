@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import {
     Box,
     Typography,
@@ -15,19 +15,32 @@ import { setLoginToken } from '../../hooks/storage'
 import { Navigate } from 'react-router-dom'
 import Cookie from 'js-cookie'
 import './index.css'
+import { Context as ContextSnackbar } from '../../context/notificationcontext/notificationcontext'
 const AdminLogin = () => {
     const [userDetail, setUserDetail] = useState({
         email: '',
         password: '',
     })
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const navigate = useNavigate()
     const { mutate } = useMutation(requestAdmin, {
         onSuccess: (res) => {
             setLoginToken(res.data.data.token)
             localStorage.setItem('type', res?.data?.data?.type)
             navigate("/project-list")
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
+            console.log(err.message);
+            debugger;
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.message,
+            })
         }
     });
     const handleLogin = async (e) => {
